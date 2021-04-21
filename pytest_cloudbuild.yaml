@@ -6,3 +6,4 @@ steps:
   args:
   - -c
   - 'pip install -U pytest && pytest test_sample.py'
+  
