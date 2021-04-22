@@ -5,4 +5,4 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install -U pytest && pytest test_sample.py'
+  - 'pip install -U pytest && pytest'
