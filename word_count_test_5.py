@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from datetime import datetime as dt
 
+
 import apache_beam as beam
 from apache_beam.coders import VarIntCoder
 from apache_beam.testing.test_pipeline import TestPipeline
