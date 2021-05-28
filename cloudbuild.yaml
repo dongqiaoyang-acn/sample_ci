@@ -5,4 +5,4 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install -U pytest && pytest'
+  - 'pip install -U pytest && pip install apache-beam[gcp] && pytest'
