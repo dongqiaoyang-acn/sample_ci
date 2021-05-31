@@ -11,4 +11,4 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'export GOOGLE_APPLICATION_CREDENTIALS="gs://acn-montreal-ai-hackathon/data/acn-montreal-ai-hackathon-745fcad5cbc9.json" && pip install apache-beam[gcp] && python -m test_bq_io_ut --region central1 --runner DirectRunner --project acn-montreal-ai-hackathon --num_records 418 --input_table bqml_tutorial.titanic_dataset_test --temp_location gs://dataflow-staging-northamerica-northeast1-426605919781/temp/ --staging_location gs://dataflow-staging-northamerica-northeast1-426605919781/temp/ --noauth_local_webserver --service_account_email data-studio@acn-montreal-ai-hackathon.iam.gserviceaccount.com'
+  - python -m test_bq_io_ut --region central1 --runner DirectRunner --project acn-montreal-ai-hackathon --num_records 418 --input_table bqml_tutorial.titanic_dataset_test --temp_location gs://dataflow-staging-northamerica-northeast1-426605919781/temp/ --staging_location gs://dataflow-staging-northamerica-northeast1-426605919781/temp/ --noauth_local_webserver --service_account_email data-studio@acn-montreal-ai-hackathon.iam.gserviceaccount.com'
