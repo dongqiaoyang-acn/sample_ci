@@ -1,8 +1,0 @@
-steps:
-# This step runs the unit tests on the app
-- name: 'docker.io/library/python:3.7'
-  id: Test
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - 'pip install -U pytest && pytest test_sample.py'
