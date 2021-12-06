@@ -6,9 +6,3 @@ steps:
   args:
   - -c
   - 'pip install -U pytest && pip install apache-beam[gcp] && pytest'
-- name: 'docker.io/library/python:3.7'
-  id: dataflow_bq_test
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - 'pip install apache-beam[gcp] && python -m test_pipeline_dlp_template --region central1 --runner DirectRunner --project acn-montreal-ai-hackathon --beam_bq_source True --input_table studio_assets.vca_input --temp_location gs://dataflow-staging-northamerica-northeast1-426605919781/temp/ --staging_location gs://dataflow-staging-northamerica-northeast1-426605919781/temp/ --deidentify_template_name "projects/acn-montreal-ai-hackathon/locations/global/deidentifyTemplates/dlp_studio_template_deid" --inspection_template_name "projects/acn-montreal-ai-hackathon/locations/global/inspectTemplates/dlp_studio_template_inspect" --dlp_retry_limit 5 --p2p acn-montreal-ai-hackathon
