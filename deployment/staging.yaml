@@ -1,0 +1,116 @@
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'get-key'
+    entrypoint: 'bash'
+    dir: .
+    args:
+      - '-c'
+      - |
+        gcloud secrets versions access latest --secret="github" --project=${_KEY_PROJECT} > /root/.ssh/id_rsa
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'get-passphrase'
+    entrypoint: 'bash'
+    dir: .
+    args:
+      - '-c'
+      - |
+        gcloud secrets versions access latest --secret="pulumi" --project=${_KEY_PROJECT} > /secret/passphrase
+    volumes:
+      - name: 'passphrase'
+        path: /secret
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'add-key'
+    entrypoint: 'bash'
+    dir: .
+    args:
+      - '-c'
+      - |
+        chmod 600 /root/.ssh/id_rsa
+        cat <<EOF >/root/.ssh/config
+        Hostname github.com
+        IdentityFile /root/.ssh/id_rsa
+        EOF
+        ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'add-passphrase'
+    entrypoint: 'bash'
+    dir: .
+    args:
+      - '-c'
+      - |
+        chmod 600 /secret/passphrase
+    volumes:
+      - name: 'passphrase'
+        path: /secret
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'crlf'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        git config --global core.autocrlf input
+        git reset --hard
+        git clean -fdx
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  # - name: 'gcr.io/cloud-builders/git'
+    # id: 'get-diffs'
+    # entrypoint: 'bash'
+    # args: [
+      # '/workspace/scripts/get_diffs.sh'
+    # ]
+    # env: [
+      # 'BASE_REPO_URL=${_BASE_REPO_URL}',
+      # 'BASE_BRANCH=${_BASE_BRANCH}',
+      # 'PR_NUMBER=${_PR_NUMBER}',
+    # ]
+    # volumes:
+      # - name: 'ssh'
+        # path: /root/.ssh
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'create-staging-dir'
+    entrypoint: 'bash'
+    args:
+    - -exc
+    - |
+      mkdir staging
+      cd .. 
+      pwd
+  - name: 'gcr.io/cio-gke-devops-e4993356/exegol-ai/tests/pulumi:1.0.5-rc'
+    id: 'build-pulumi'
+    entrypoint: 'bash'
+    args: [
+        '/run_sa.sh'
+      # '/workspace/scripts/run_sa.sh'
+    ]
+    env: [
+      'PROJECT_ID=${_KEY_PROJECT}',
+      'TEAM=${_TEAM}',
+      'STATE_BUCKET=${_STATE_BUCKET}'
+    ]
+    waitFor: ['create-staging-dir']
+    volumes:
+      - name: 'passphrase'
+        path: /secret
+
+
+options:
+  substitution_option: 'ALLOW_LOOSE'
+
+substitutions:
+  _KEY_VERSION: "latest"
+  _BASE_BRANCH: "main"
+  _TEAM: "pdc"
+  _BASE_REPO_URL: "git@github.com:dongqiaoyang-acn/datalayer.git"
+  _KEY_PROJECT: 'acn-montreal-ai-hackathon'
+  _STATE_BUCKET: 'gs://acn-montreal-ai-files'
+  _ENV: "np"
+  
+timeout: 600s
