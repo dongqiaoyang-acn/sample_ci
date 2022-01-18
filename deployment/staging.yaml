@@ -10,17 +10,17 @@ steps:
   #   volumes:
   #     - name: 'ssh'
   #       path: /root/.ssh
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   id: 'get-passphrase'
-  #   entrypoint: 'bash'
-  #   dir: .
-  #   args:
-  #     - '-c'
-  #     - |
-  #       gcloud secrets versions access latest --secret="pulumi" --project=${_KEY_PROJECT} > /secret/passphrase
-  #   volumes:
-  #     - name: 'passphrase'
-  #       path: /secret
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'get-passphrase'
+    entrypoint: 'bash'
+    dir: .
+    args:
+      - '-c'
+      - |
+        gcloud secrets versions access latest --secret="pulumi" --project=${_KEY_PROJECT} > /secret/passphrase
+    volumes:
+      - name: 'passphrase'
+        path: /secret
   # - name: 'gcr.io/cloud-builders/git'
   #   id: 'add-key'
   #   entrypoint: 'bash'
@@ -37,17 +37,17 @@ steps:
   #   volumes:
   #     - name: 'ssh'
   #       path: /root/.ssh
-  # - name: 'gcr.io/cloud-builders/git'
-  #   id: 'add-passphrase'
-  #   entrypoint: 'bash'
-  #   dir: .
-  #   args:
-  #     - '-c'
-  #     - |
-  #       chmod 600 /secret/passphrase
-  #   volumes:
-  #     - name: 'passphrase'
-  #       path: /secret
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'add-passphrase'
+    entrypoint: 'bash'
+    dir: .
+    args:
+      - '-c'
+      - |
+        chmod 600 /secret/passphrase
+    volumes:
+      - name: 'passphrase'
+        path: /secret
   # - name: 'gcr.io/cloud-builders/git'
   #   id: 'crlf'
   #   entrypoint: 'bash'
