@@ -14,7 +14,7 @@ users:
   subscribers:
     subscribers:
     - principal: user:ian.gagnon@accenture.com
-      expiry: datetime(2022,10,25)
+      expiry: datetime(2021,12,25)
   publishers:
     - principal: user:ian.gagnon@accenture.com
       expiry: datetime(2022,10,25)
