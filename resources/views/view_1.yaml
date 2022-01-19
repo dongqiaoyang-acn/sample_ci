@@ -1,0 +1,18 @@
+kind: view
+metadata:
+  dep: "144"
+description: "Table for testing pulling data from datahub"
+resource_name: test_view
+dataset_id: pdc_1
+expiration_datetime_staging: datetime(2021,12,25)
+expiration_datetime_pr:
+query: >
+  select * from `source_data.data`
+use_legacy_sql: false
+users:
+  subscribers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)
+  publishers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)
