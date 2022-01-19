@@ -1,0 +1,19 @@
+kind: materialized
+metadata:
+  dep: "144"
+description: "Table for testing"
+resource_name: material_data_access
+dataset_id: pdc_1
+expiration_datetime_staging: datetime(2021,12,25)
+expiration_datetime_pr:
+params:
+  query: "select * from `source_data.data`"
+  refresh: true
+  refresh_ms: 60000
+users:
+  subscribers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)
+  publishers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)

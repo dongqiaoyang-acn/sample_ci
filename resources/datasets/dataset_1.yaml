@@ -1,0 +1,11 @@
+kind: dataset
+metadata:
+  dep: "12"
+description: "techub dataset"
+resource_name: data_access
+partition_expiration_ms:
+table_expiration_ms:
+users:
+  subscribers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)

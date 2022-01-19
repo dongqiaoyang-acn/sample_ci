@@ -1,0 +1,12 @@
+kind: bucket
+metadata:
+  dep: "12"
+resource_name: 'bucket_data_access'
+storage_class: 'STANDARD'
+users:
+  subscribers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)
+  publishers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)

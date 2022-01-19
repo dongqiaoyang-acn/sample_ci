@@ -1,0 +1,95 @@
+kind: table
+metadata:
+  dep: "144"
+description: "Table for testing"
+resource_name: audit_run
+dataset_id: data_access
+expiration_datetime_staging: datetime(2022,12,25)
+expiration_datetime_pr:
+schema: >
+  [
+    {
+      "name": "run_id",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "run_id"
+    },
+    {
+      "name": "run_ts",
+      "type": "DATETIME",
+      "mode": "REQUIRED",
+      "description": "run_ts"
+    },
+    {
+        "name": "addresses",
+        "type": "RECORD",
+        "mode": "REPEATED",
+        "fields": [
+            {
+                "name": "status",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "address",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "city",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "state",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "zip",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "numberOfYears",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "numberOfMonths",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "numberOfWeeks",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+      "name": "run_sa",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "run_sa"
+    },
+    {
+      "name": "run_status",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "run_status"
+    },
+    {
+      "name": "run_query",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "run_query"
+    }
+  ]
+users:
+  subscribers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)
+  publishers:
+    - principal: user:ian.gagnon@accenture.com
+      expiry: datetime(2022,10,25)
