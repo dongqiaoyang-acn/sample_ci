@@ -3,7 +3,7 @@ metadata:
   dep: "144"
 description: "Table for testing s"
 resource_name: query_scheduled_1
-dataset_id: pdc_1
+dataset_id: data_access
 expiration_datetime_staging: datetime(2021,12,25)
 expiration_datetime_pr:
 query_schedule: "every 24 hours"

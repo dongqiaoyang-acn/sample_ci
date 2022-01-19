@@ -3,7 +3,7 @@ metadata:
   dep: "144"
 description: "Table for testing"
 resource_name: audit_run
-dataset_id: pdc_1
+dataset_id: data_access
 expiration_datetime_staging: datetime(2022,12,25)
 expiration_datetime_pr:
 schema: >
